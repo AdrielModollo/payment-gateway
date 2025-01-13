@@ -16,7 +16,7 @@ public class PaymentProducerTest {
 
         PaymentMessage paymentMessage = new PaymentMessage();
         paymentMessage.setOrderId(123L);
-        paymentMessage.setStatus("payment_success");
+        paymentMessage.setAmount(100.0);
 
         paymentProducer.sendPaymentMessage(paymentMessage);
 

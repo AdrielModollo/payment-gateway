@@ -17,7 +17,7 @@ public class PaymentListenerTest {
 
         PaymentMessage paymentMessage = new PaymentMessage();
         paymentMessage.setOrderId(123L);
-        paymentMessage.setStatus("payment_fail");
+        paymentMessage.setAmount(600.0 );
 
         paymentListener.processPayment(paymentMessage);
 
@@ -32,7 +32,7 @@ public class PaymentListenerTest {
 
         PaymentMessage paymentMessage = new PaymentMessage();
         paymentMessage.setOrderId(123L);
-        paymentMessage.setStatus("payment_success");
+        paymentMessage.setAmount(100.0);
 
         paymentListener.processPayment(paymentMessage);
 

@@ -10,21 +10,18 @@ import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 @EnableRabbit
 public class RabbitMQConfig {
 
-    // Bean para o conversor de mensagens (Jackson)
     @Bean
     public Jackson2JsonMessageConverter messageConverter() {
         return new Jackson2JsonMessageConverter();
     }
 
-    // Fila de checkout
     @Bean
     public Queue checkoutQueue() {
-        return new Queue("checkout", true); // persistente
+        return new Queue("checkout", true);
     }
 
-    // Fila de payment
     @Bean
     public Queue paymentQueue() {
-        return new Queue("payment", true); // persistente
+        return new Queue("payment", true);
     }
 }

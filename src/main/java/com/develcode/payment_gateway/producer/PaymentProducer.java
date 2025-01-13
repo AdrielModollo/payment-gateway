@@ -9,14 +9,13 @@ public class PaymentProducer {
 
     private final RabbitTemplate rabbitTemplate;
 
-    // Injeção do RabbitTemplate para enviar mensagens
+
     public PaymentProducer(RabbitTemplate rabbitTemplate) {
         this.rabbitTemplate = rabbitTemplate;
     }
 
-    // Método que envia a mensagem para a fila 'payment'
     public void sendPaymentMessage(PaymentMessage paymentMessage) {
-        String routingKey = "payment"; // A fila para onde a mensagem será enviada
-        rabbitTemplate.convertAndSend(routingKey, paymentMessage); // Envia a mensagem
+        String routingKey = "payment";
+        rabbitTemplate.convertAndSend(routingKey, paymentMessage);
     }
 }

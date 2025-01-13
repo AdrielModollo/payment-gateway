@@ -23,17 +23,16 @@ public class PaymentListener {
     public void processPayment(PaymentMessage paymentMessage) {
         logger.info("Mensagem recebida da fila 'checkout': " + paymentMessage);
 
-        // Verifica o status da mensagem
-        if ("payment_fail".equals(paymentMessage.getStatus())) {
-            // Atualiza o status e envia de volta para a fila 'payment'
-            paymentMessage.setStatus("payment_fail");
-            paymentProducer.sendPaymentMessage(paymentMessage);
-            logger.info("Pagamento falhou para a ordem " + paymentMessage.getOrderId() + ", mensagem reenviada para a fila 'payment'.");
-        } else {
-            // Se o pagamento foi bem-sucedido, processa normalmente
+        if (paymentMessage.getAmount() > 0 && paymentMessage.getAmount() <= 500) {
             paymentMessage.setStatus("payment_success");
-            paymentProducer.sendPaymentMessage(paymentMessage);
-            logger.info("Pagamento autorizado para a ordem " + paymentMessage.getOrderId() + ", mensagem enviada para a fila 'payment'.");
+            logger.info("Pagamento autorizado para a ordem " + paymentMessage.getOrderId());
+
+        } else {
+            paymentMessage.setStatus("payment_fail");
+            logger.info("Pagamento falhou para a ordem " + paymentMessage.getOrderId() + ", saldo insuficiente!");
         }
+
+        // Envia a mensagem com o novo status para a fila 'payment'
+        paymentProducer.sendPaymentMessage(paymentMessage);
     }
 }
